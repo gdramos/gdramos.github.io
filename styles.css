@@ -1,0 +1,28 @@
+*{
+  background-color: #01426a;
+  color: whitesmoke;
+  font-family: 'Kite One';
+  padding: 0px;
+  letter-spacing: 1px;
+}
+
+button{
+  background-color: rgb(34, 93, 56);
+  border-radius: 1px;
+  font-size: 110%;
+}
+
+.controls{
+  font-size: 100%;
+  padding: 5px 5px;
+  margin: 0px 0px;
+  border: 1px solid;
+  border-radius: 3px;
+  border-color: #ffc107;
+}
+
+.showBorder
+{
+  border-color: #ffc107;
+  border: 1px solid;
+}

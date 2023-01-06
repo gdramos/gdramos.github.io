@@ -1,0 +1,39 @@
+
+
+
+<!DOCTYPE  html>
+<html>
+
+<!--HEAD---------------------------------------------------------------------->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="Description" content="Set your baudrate and hit connect.">
+  <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=KoHo' rel='stylesheet'>
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Web Serial Terminal</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<!--BODY---------------------------------------------------------------------->
+<body>
+  <header>
+    <h2 class="showBorder">Web Serial Terminal</h2>
+  </header>
+  <br class="showBorder">
+  <div align="center" class="controls" style="float:center;">
+    <label class="controls" style="float:left";>Baudrate</label>
+    <input type="text" id="baud" class="controls">
+    <button class="controls">CONNECT</button>
+    <button class="controls">CLEAR</button>
+    <input class="controls" type="checkbox" id="addLine" onclick="localStorage.addLine = this.checked" checked>
+    <label class="controls" for="addLine">Append&nbspCR</label>
+    <input class="controls" type="checkbox" id="echoOn" onclick="localStorage.echoOn = this.checked" checked>
+    <label class="controls" for="echoOn">Local&nbspEcho</label>
+  </div>
+
+</body>
+
+</html>
+<!--EOF----------------------------------------------------------------------->

@@ -1,0 +1,51 @@
+<!DOCTYPE  html>
+<html>
+
+<!--HEAD---------------------------------------------------------------------->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="Description" content="74LSXX Pinout Viewer">
+  <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=KoHo' rel='stylesheet'>
+  <link rel="stylesheet" href="styles.css">
+
+  <title>74LSXX Pinout Viewer</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<!--BODY---------------------------------------------------------------------->
+<body>
+  <div align="center" class="controls" style="float:center;">
+    <select class="controls" name="part" id="part" onchange="pinoutImage.src = getImageLink(this.value); datasheet.href = getDatasheetLink(this.value)">
+      <option value="74ls00">74ls00 - NAND GATE</option>
+      <option value="74ls04">74ls04 - INVERTER</option>
+      <option value="74ls08">74ls08 - AND GATE</option>
+      <option value="74ls32">74ls32 - OR GATE</option>
+    </select>
+    <input type="checkbox" id="horizontalPinout" onclick="localStorage.horizontalPinout = this.checked" unchecked>
+    <label for="horizontalPinout">Horizontal</label>
+    <a id="datasheet" href="images/Datasheet Collection/sn74ls00.pdf" target="_blank">DATASHEET</a> 
+  </div>
+  <br>
+  <div align="center">
+    <img id="pinoutImage" src="images/pinout_74ls00.png" alt="pinout" align="center" style="height: 75vh; object-fit: contain;">
+  </div>
+
+<script>
+
+  function getImageLink(partValue)
+  {
+    return "images/pinout_" + partValue + ".png";
+  }
+
+  function getDatasheetLink(partValue)
+  {
+    return "images/Datasheet Collection/sn" + partValue + ".pdf";
+  }
+
+</script>
+
+</body>
+
+</html>
+<!--EOF----------------------------------------------------------------------->
