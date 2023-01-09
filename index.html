@@ -10,6 +10,7 @@
   <meta name="Description" content="Set your baudrate and hit connect.">
   <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=KoHo' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Goldman' rel='stylesheet'>
   <link rel="stylesheet" href="styles.css">
 
   <title>Web Serial Terminal</title>
@@ -18,19 +19,13 @@
 
 <!--BODY---------------------------------------------------------------------->
 <body>
-  <header>
-    <h2 align="center" class="showBorder">GR Toolbox</h2>
-  </header>
-  <br class="showBorder">
+  <div class="topnav">
+    <label>GR Toolbox</a>
+  </div>
   <div align="center" class="controls" style="float:center;">
-    <label class="controls" style="float:left";>Baudrate</label>
-    <input type="text" id="baud" class="controls">
-    <button class="controls">CONNECT</button>
-    <button class="controls">CLEAR</button>
-    <input class="controls" type="checkbox" id="addLine" onclick="localStorage.addLine = this.checked" checked>
-    <label class="controls" for="addLine">Append&nbspCR</label>
-    <input class="controls" type="checkbox" id="echoOn" onclick="localStorage.echoOn = this.checked" checked>
-    <label class="controls" for="echoOn">Local&nbspEcho</label>
+    <button onclick="location.href='https://www.grtoolbox.com/ECE-2300L_serial_terminal/'">Serial<br>Terminal</button>
+    <button onclick="location.href='pinouts.html'">74LSXX<br>Pinout Viewer</button>
+    <button onclick=" window.open('https://www.falstad.com/circuit/circuitjs.html','_blank')">Circuit<br>Simulator</button>
   </div>
 
 </body>

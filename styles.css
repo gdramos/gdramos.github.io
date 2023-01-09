@@ -1,23 +1,70 @@
+:root
+{
+  --mainBlue: #01426a;
+  --mainGreen: #225D38;
+  --hoverBlue: rgba(1, 66, 106, 0.25);
+}
+
 *{
-  background-color: #01426a;
   color: whitesmoke;
-  font-family: 'Kite One';
-  padding: 0px;
+  font-family: 'Goldman';
+  font-weight: 500;
   letter-spacing: 1px;
 }
 
-button{
-  background-color: rgb(34, 93, 56);
-  border-radius: 1px;
-  font-size: 110%;
+body,html
+{
+/*  background-image: linear-gradient(to bottom right, #01426a, #225D38);*/
+  background-image: radial-gradient(var(--mainBlue), var(--mainGreen));
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
 }
 
-.controls{
+button
+{
+  background-color: var(--mainBlue);
+  font-size: 110%;
+  width: 33%;
+  height: 30vh;
+}
+
+button:hover
+{
+  background-color: var(--hoverBlue);
+}
+
+button:active 
+{
+  background-color: #3e8e41;
+  transform: translateY(4px);
+}
+
+select
+{
+  background-color: var(--mainBlue);
+  font-size: 14px;
+}
+
+/* Style the top navigation bar */
+.topnav 
+{
+  font-size: 3vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+}
+
+.topnav a
+{
+}
+
+.controls
+{
   font-size: 100%;
   padding: 5px 5px;
   margin: 0px 0px;
   border: 1px solid;
-  border-radius: 3px;
   border-color: #ffc107;
 }
 
@@ -25,4 +72,12 @@ button{
 {
   border-color: #ffc107;
   border: 1px solid;
+}
+
+@media screen and (max-width: 1000px)
+{
+  button
+  {
+    width: 100%;
+  }
 }

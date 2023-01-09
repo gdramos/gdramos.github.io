@@ -7,6 +7,7 @@
   <meta name="Description" content="74LSXX Pinout Viewer">
   <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=KoHo' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Goldman' rel='stylesheet'>
   <link rel="stylesheet" href="styles.css">
 
   <title>74LSXX Pinout Viewer</title>
@@ -16,7 +17,7 @@
 <!--BODY---------------------------------------------------------------------->
 <body>
   <div align="center" class="controls" style="float:center;">
-    <select class="controls" name="part" id="part" onchange="pinoutImage.src = getImageLink(this.value); datasheet.href = getDatasheetLink(this.value)">
+    <select class="controls, select" name="part" id="part" onchange="pinoutImage.src = getImageLink(this.value); datasheet.href = getDatasheetLink(this.value)">
       <option value="74ls00">74ls00 - NAND GATE</option>
       <option value="74ls04">74ls04 - INVERTER</option>
       <option value="74ls08">74ls08 - AND GATE</option>
