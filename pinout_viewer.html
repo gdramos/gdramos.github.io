@@ -4,26 +4,43 @@
 <!--HEAD---------------------------------------------------------------------->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <meta name="Description" content="This is a collection of Electrical Engineering tools">
+  <meta name="Description" content="74LSXX Pinout Viewer">
 
   <link href='https://fonts.googleapis.com/css?family=Goldman' rel='stylesheet'>
   <link rel="stylesheet" href="styles.css">
 
-  <title>GR Toolbox</title>
+  <title>74LSXX Pinout Viewer</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <!--BODY---------------------------------------------------------------------->
 <body>
   <div class="topBar">
-    <label>GR Toolbox</a>
+    <label onclick="location.href='https://www.grtoolbox.com">GR Toolbox</a>
+    <div style="float: right">
+      <input type="checkbox" id="echoOn" onclick="mainFrame.src = getViewerLink(this.checked);" unchecked>
+      <label for="echoOn">Multiple</label>
+    </div>
   </div>
   <div align="center" class="controls" style="float:center;">
-    <button class="bigTileButton" onclick="location.href='https://www.grtoolbox.com/ECE-2300L_serial_terminal/'">Serial<br>Terminal</button>
-    <button class="bigTileButton" onclick="location.href='pinout_viewer.html'">74LSXX<br>Pinout Viewer</button>
-    <button class="bigTileButton" onclick=" window.open('https://www.falstad.com/circuit/circuitjs.html','_blank')">Circuit<br>Simulator</button>
+    <iframe id="mainFrame" class="pinViewerFrame" src="pinouts.html"></iframe>
   </div>
-</body>
 
+  <script>
+
+  function getViewerLink(selection)
+  {
+    if(selection == true)
+    {
+      return "multi_pinouts.html";
+    }
+    else
+    {
+      return "pinouts.html";
+    }
+  }
+
+</script>
+</body>
 </html>
 <!--EOF----------------------------------------------------------------------->

@@ -4,27 +4,26 @@
 <!--HEAD---------------------------------------------------------------------->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <meta name="Description" content="74LSXX Pinout Viewer">
-  <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=KoHo' rel='stylesheet'>
+  <meta name="Description" content="74LSXX Pinout Single-Viewer">
+
   <link href='https://fonts.googleapis.com/css?family=Goldman' rel='stylesheet'>
   <link rel="stylesheet" href="styles.css">
 
-  <title>74LSXX Pinout Viewer</title>
+  <title>74LSXX Pinout Single-Viewer</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <!--BODY---------------------------------------------------------------------->
 <body>
   <div align="center" class="controls" style="float:center;">
-    <select class="controls, select" name="part" id="part" onchange="pinoutImage.src = getImageLink(this.value); datasheet.href = getDatasheetLink(this.value)">
-      <option value="74ls00">74ls00 - NAND GATE IC</option>
-      <option value="74ls04">74ls04 - INVERTER IC</option>
-      <option value="74ls08">74ls08 - AND GATE IC</option>
-      <option value="74ls32">74ls32 - OR GATE IC</option>
+    <select class="viewSelect" name="part" id="part" onchange="pinoutImage.src = getImageLink(this.value); datasheet.href = getDatasheetLink(this.value)">
+      <option value="74ls00">74ls00 - NAND</option>
+      <option value="74ls04">74ls04 - NOT</option>
+      <option value="74ls08">74ls08 - AND</option>
+      <option value="74ls32">74ls32 - OR</option>
     </select>
-    <input type="checkbox" id="horizontalPinout" onclick="localStorage.horizontalPinout = this.checked" unchecked>
-    <label for="horizontalPinout">Horizontal</label>
+    <!-- <input type="checkbox" id="horizontalPinout" onclick="localStorage.horizontalPinout = this.checked" unchecked>
+    <label for="horizontalPinout">Horizontal</label> -->
     <a id="datasheet" href="images/Datasheet Collection/sn74ls00.pdf" target="_blank">DATASHEET</a> 
   </div>
   <br>
