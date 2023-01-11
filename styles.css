@@ -30,6 +30,11 @@ body, html
   width: 100%;
 }
 
+.topBar a
+{
+  text-decoration: none;
+}
+
 .bigTileButton
 {
   background-color: var(--mainBlue);
