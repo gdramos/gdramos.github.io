@@ -1,0 +1,59 @@
+<!DOCTYPE  html>
+<html>
+
+<!--HEAD---------------------------------------------------------------------->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="Description" content="Serial Terminal">
+
+  <link href='https://fonts.googleapis.com/css?family=Goldman' rel='stylesheet'>
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Serial Terminal</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<!--BODY---------------------------------------------------------------------->
+<body>
+  <div class="topBar">
+    <a href="https://www.grtoolbox.com">GR Toolbox</a>
+  </div>
+  <div align="center" class="serialSettingsBar">
+    <label>Baudrate: </label>
+    <select class="baudSelect">
+      <option value="110">110</option>
+      <option value="300">300</option>
+      <option value="600">600</option>
+      <option value="1200">1200</option>
+      <option value="2400">2400</option>
+      <option value="4800">4800</option>
+      <option value="9600">9600</option>
+      <option value="14400">14400</option>
+      <option value="19200">19200</option>
+      <option value="38400">38400</option>
+      <option value="57600">57600</option>
+      <option value="115200">115200</option>
+      <option value="128000">128000</option>
+      <option value="256000">256000</option>
+      </select>
+      <button onclick="connectSerial()" class="serialSettingButton" style="width:10%">CONNECT</button>
+      <button onclick="serialResultsDiv.innerHTML = '';" class="serialSettingButton" style="width:10%">CLEAR</button>
+
+      <input type="checkbox" id="addLine" onclick="localStorage.addLine = this.checked;" checked>
+      <label for="addLine">Append CR</label>
+
+      <input type="checkbox" id="echoOn" onclick="localStorage.echoOn = this.checked;" checked>
+      <label for="echoOn">Local echo</label>
+  </div>
+  <div align="center" class="serialSettingsBar">
+    <input type="text" id="lineToSend"  class="serialTextInput" style="width:80%">
+    <button onclick="sendSerialLine()" class="serialSettingButton" style="width:10%">SEND</button>
+  </div>
+  <div id="serialResults" align="center" class="serialTerminalWindow"></div>
+  <script>
+
+
+  </script>
+</body>
+</html>
+<!--EOF----------------------------------------------------------------------->

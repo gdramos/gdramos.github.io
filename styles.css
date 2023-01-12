@@ -101,3 +101,63 @@ body, html
   width: 99%;
   height: calc(100vh - 55px);
 }
+
+.serialSettingsBar
+{
+}
+
+.baudSelect
+{
+  background-color: var(--mainBlue);
+  padding: 10px 20px;
+  margin: 5px 0px;
+  border: none;
+}
+
+.baudSelect:hover
+{
+  color: goldenrod;
+}
+
+.serialSettingButton
+{
+  background-color: var(--mainBlue);
+  padding: 10px 20px;
+  margin: 5px 0px;
+  border: none;
+  min-width: fit-content;
+}
+
+.serialSettingButton:hover
+{
+  color: goldenrod;
+}
+
+.serialSettingButton:active
+{
+  background-color: #3e8e41;
+  transform: translateY(2px);
+}
+
+.serialTextInput
+{
+    padding: 10px 20px;
+    margin: 5px 0px;
+    background-color: rgb(35, 35, 35);
+    border: none;
+}
+
+.serialTerminalWindow
+{
+  font-family: monospace;
+  font-size: 110%;
+  white-space: pre;
+  height: calc(100% - 200px);
+  border-style: solid;
+  border-width: 1px;
+  border-color: whitesmoke;
+  overflow: auto;
+  background-color: rgb(35, 35, 35);
+  padding: 10px;
+  margin: 0px;
+}
