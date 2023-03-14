@@ -20,7 +20,7 @@
   </div>
   <div align="center" class="serialSettingsBar">
     <label>Baudrate: </label>
-    <select class="baudSelect">
+    <select class="baudSelect" id = "baud" style="font-size: 110%;">
       <option value="110">110</option>
       <option value="300">300</option>
       <option value="600">600</option>
@@ -46,11 +46,81 @@
       <label for="echoOn">Local echo</label>
   </div>
   <div align="center" class="serialSettingsBar">
-    <input type="text" id="lineToSend"  class="serialTextInput" style="width:80%">
+    <input type="text" id="lineToSend"  class="serialTextInput" style="width:86%">
     <button onclick="sendSerialLine()" class="serialSettingButton" style="width:10%">SEND</button>
   </div>
   <div id="serialResults" align="center" class="serialTerminalWindow"></div>
+
   <script>
+    var port, textEncoder, writableStreamClosed, writer;
+
+    async function connectSerial() 
+    {
+        try {
+            // Prompt user to select any serial port.
+            port = await navigator.serial.requestPort();
+            await port.open({ baudRate: document.getElementById("baud").value });
+            listenToPort();
+
+            textEncoder = new TextEncoderStream();
+            writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
+
+            writer = textEncoder.writable.getWriter();
+        } catch {
+            alert("Serial Connection Failed");
+        }
+    }
+
+    async function sendSerialLine() 
+    {
+        dataToSend = document.getElementById("lineToSend").value;
+        if (document.getElementById("addLine").checked == true) dataToSend = dataToSend + "\r";
+        if (document.getElementById("echoOn").checked == true) appendToTerminal("> " + dataToSend);
+        await writer.write(dataToSend);
+        document.getElementById("lineToSend").value = "";
+        //await writer.releaseLock();
+    }
+
+    async function listenToPort() 
+    {
+        const textDecoder = new TextDecoderStream();
+        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+        const reader = textDecoder.readable.getReader();
+
+        // Listen to data coming from the serial device.
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+                // Allow the serial port to be closed later.
+                //reader.releaseLock();
+                break;
+            }
+            // value is a string.
+            appendToTerminal(value);
+        }
+    }
+
+    const serialResultsDiv = document.getElementById("serialResults");
+
+    async function appendToTerminal(newStuff) 
+    {
+        serialResultsDiv.innerHTML += newStuff;
+        if (serialResultsDiv.innerHTML.length > 100000) serialResultsDiv.innerHTML = serialResultsDiv.innerHTML.slice(serialResultsDiv.innerHTML.length - 100000);
+
+        //scroll down to bottom of div
+        serialResultsDiv.scrollTop = serialResultsDiv.scrollHeight;
+    }
+
+    document.getElementById("lineToSend").addEventListener("keyup", async function (event) 
+    {
+        if (event.keyCode === 13) {
+            sendSerialLine();
+        }
+    })
+
+    document.getElementById("baud").value = (localStorage.baud == undefined ? 115200 : localStorage.baud);
+    document.getElementById("addLine").checked = (localStorage.addLine == "false" ? false : true);
+    document.getElementById("echoOn").checked = (localStorage.echoOn == "false" ? false : true);
 
 
   </script>

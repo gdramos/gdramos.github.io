@@ -41,6 +41,7 @@ body, html
   font-size: 110%;
   width: 33%;
   height: 30vh;
+  margin-top: 5px;
 }
 
 .bigTileButton:hover
@@ -67,6 +68,13 @@ body, html
   margin: 0px 0px;
   /*border: 1px solid;
   border-color: #ffc107;*/
+}
+
+.homeBigTilesDiv
+{
+  font-size: 100%;
+  padding: 5px 5px;
+  margin: 0px 0px;
 }
 
 .showBorder
@@ -104,6 +112,7 @@ body, html
 
 .serialSettingsBar
 {
+  font-size: 120%;
 }
 
 .baudSelect
@@ -121,6 +130,7 @@ body, html
 
 .serialSettingButton
 {
+  font-size: 100%;
   background-color: var(--mainBlue);
   padding: 10px 20px;
   margin: 5px 0px;
@@ -139,18 +149,27 @@ body, html
   transform: translateY(2px);
 }
 
+.serialSettingButton:disabled
+{
+  background-color: #808080;
+}
+
 .serialTextInput
 {
-    padding: 10px 20px;
-    margin: 5px 0px;
-    background-color: rgb(35, 35, 35);
-    border: none;
+  font-family: monospace;
+  font-size: 120%;
+  padding: 10px 20px;
+  margin: 5px 0px;
+  background-color: rgb(35, 35, 35);
+  border: none;
+  overflow: auto;
 }
 
 .serialTerminalWindow
 {
+  text-align: left;
   font-family: monospace;
-  font-size: 110%;
+  font-size: 120%;
   white-space: pre;
   height: calc(100% - 200px);
   border-style: solid;
@@ -160,4 +179,21 @@ body, html
   background-color: rgb(35, 35, 35);
   padding: 10px;
   margin: 0px;
+}
+
+.gridInputCell
+{
+  font-family: monospace;
+  text-align: center;
+  font-size: 130%;
+  background-color: rgb(35, 35, 35);
+  border-style: none;
+  width: 90%;
+}
+
+.gridColHeader
+{
+  font-family: monospace;
+  font-size: 130%;
+  text-align: center;
 }
