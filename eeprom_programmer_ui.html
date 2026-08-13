@@ -24,8 +24,10 @@
 <!--       <button id="SetFFButton" onclick="SetAllCells('FF')" class="serialSettingButton" style="width:10%">SET ALL FF</button>
       <button id="Set00Button" onclick="SetAllCells('AA')" class="serialSettingButton" style="width:10%">SET ALL 00</button> -->
       <button id="WriteButton" onclick="sendWriteCommand(true)" class="serialSettingButton" style="width:10%" disabled="true">WRITE</button>
+      <button id="ClearAllButton" onclick="clearAllCells()" class="serialSettingButton" style="width:10%" disabled="true">CLEAR ALL</button>
       <button id="LockButton" onclick="WriteProtectCommand(true)" class="serialSettingButton" style="width:10%" disabled="true">LOCK</button>
       <button id="UnlockButton" onclick="WriteProtectCommand(false)" class="serialSettingButton" style="width:10%" disabled="true">UNLOCK</button>
+      <!--<button id="HelpButton" onclick="" class="serialSettingButton" style="width:10%">HELP</button> -->
   </div>
   <div align="center">
     <table id="eeprom_table">
@@ -467,7 +469,7 @@
           {
             lastCommand += " ";
             lastCommand += col.children[0].value;
-            col.children[0].value = "*";
+            //col.children[0].value = "*";
           }
           lastCommand += "\r";
           rxData = "";
@@ -480,6 +482,12 @@
       {
         alert("Write Complete!");
       }
+    }
+
+    async function clearAllCells()
+    {
+      SetAllCells('FF');
+      sendWriteCommand(true);
     }
 
     async function WriteProtectCommand(state)
