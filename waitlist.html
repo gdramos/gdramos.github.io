@@ -1395,7 +1395,12 @@
 
     function initialize() {
       elements.refreshButton.addEventListener("click", function () {
-        refreshQueue(true);
+        // A cache-busting URL reload is the browser-equivalent of a hard refresh.
+        // JavaScript cannot programmatically send Ctrl+F5, so give this document a
+        // unique URL and replace the current history entry with the fresh response.
+        const freshUrl = new URL(window.location.href);
+        freshUrl.searchParams.set("_refresh", Date.now().toString());
+        window.location.replace(freshUrl.toString());
       });
 
       refreshQueue(true);
