@@ -547,7 +547,7 @@
     .queue-item__name {
       overflow: hidden;
       margin: 0 0 6px;
-      font-size: 0.87rem;
+      font-size: 1rem;
       font-weight: 700;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -1024,6 +1024,8 @@
       queueCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjX5lEpkEaaw7zhmoIbkBlQHVTWKOfkuZir7XggwArxE-Ap367wIxmqyDfQDsoyEOFGz-RiWEyrfJe/pub?gid=0&single=true&output=csv",
       refreshIntervalMs: 30000,
       requestTimeoutMs: 20000,
+      emptyResponseRetryDelaysMs: Object.freeze([300, 700, 1400]),
+      emptySnapshotConfirmations: 2,
       maxRows: 200,
       maxNameLength: 60,
       maxLabLength: 80
@@ -1046,6 +1048,7 @@
     const state = {
       queue: [],
       refreshing: false,
+      emptySnapshotStreak: 0,
       intervalId: null,
       demoQueue: [
         { name: "Maya R.", lab: "Lab demo 4", status: "called" },
@@ -1285,15 +1288,33 @@
       }
     }
 
-    async function loadQueueCsv() {
+    async function loadQueueCsv(verifyEmpty) {
+      let queue;
+
       try {
-        return await loadQueueCsvOnce();
+        queue = await loadQueueCsvOnce();
       } catch (firstError) {
         await new Promise(function (resolve) {
           window.setTimeout(resolve, 600);
         });
-        return loadQueueCsvOnce();
+        queue = await loadQueueCsvOnce();
       }
+
+      if (queue.length) return queue;
+      if (!verifyEmpty) return queue;
+
+      // Google's published CSV occasionally returns only its header row. Require
+      // several empty responses before treating that snapshot as authoritative.
+      for (const delayMs of CONFIG.emptyResponseRetryDelaysMs) {
+        await new Promise(function (resolve) {
+          window.setTimeout(resolve, delayMs);
+        });
+
+        queue = await loadQueueCsvOnce();
+        if (queue.length) return queue;
+      }
+
+      return [];
     }
 
     function showLocalFileState() {
@@ -1312,15 +1333,17 @@
       renderMessage("⚙", "Queue not connected", "Add the published CSV URL.");
     }
 
-    async function refreshQueue() {
+    async function refreshQueue(forceEmptyVerification) {
       if (state.refreshing) return;
 
       state.refreshing = true;
       elements.refreshButton.disabled = true;
 
       try {
+        let nextQueue;
+
         if (demoMode) {
-          state.queue = state.demoQueue.slice();
+          nextQueue = state.demoQueue.slice();
         } else {
           if (window.location.protocol === "file:") {
             showLocalFileState();
@@ -1331,8 +1354,21 @@
             showUnconfiguredState();
             return;
           }
-          state.queue = await loadQueueCsv();
+          nextQueue = await loadQueueCsv(Boolean(forceEmptyVerification) || state.queue.length > 0);
         }
+
+        if (!demoMode && !nextQueue.length && state.queue.length) {
+          state.emptySnapshotStreak += 1;
+
+          if (state.emptySnapshotStreak < CONFIG.emptySnapshotConfirmations) {
+            setConnection("live", "Connected");
+            elements.lastUpdated.textContent = "Verifying…";
+            return;
+          }
+        }
+
+        state.emptySnapshotStreak = 0;
+        state.queue = nextQueue;
 
         setConnection("live", demoMode ? "Demo" : "Connected");
         elements.lastUpdated.textContent = "Updated " + new Intl.DateTimeFormat([], {
@@ -1356,14 +1392,14 @@
 
     function initialize() {
       elements.refreshButton.addEventListener("click", function () {
-        refreshQueue();
+        refreshQueue(true);
       });
 
-      refreshQueue();
+      refreshQueue(true);
       state.intervalId = window.setInterval(refreshQueue, CONFIG.refreshIntervalMs);
 
       document.addEventListener("visibilitychange", function () {
-        if (!document.hidden) refreshQueue();
+        if (!document.hidden) refreshQueue(true);
       });
     }
 
