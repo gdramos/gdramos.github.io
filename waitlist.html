@@ -498,6 +498,7 @@
       display: grid;
       grid-template-columns: 44px minmax(0, 1fr) auto;
       align-items: center;
+      height: 76px;
       min-height: 76px;
       padding: 11px 12px;
       gap: 12px;
@@ -546,9 +547,10 @@
 
     .queue-item__name {
       overflow: hidden;
-      margin: 0 0 6px;
+      margin: 0 0 4px;
       font-size: 1rem;
       font-weight: 700;
+      line-height: 1.1;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -777,6 +779,7 @@
 
       .queue-item {
         grid-template-columns: 38px minmax(0, 1fr);
+        height: auto;
         padding: 10px;
         gap: 10px;
       }
