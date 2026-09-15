@@ -1,0 +1,1373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Join the GR Toolbox lab demo waitlist and watch the queue.">
+  <meta name="theme-color" content="#01426a">
+  <title>Lab Demo Waitlist | GR Toolbox</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --main-yellow: #8b8000;
+      --main-blue: #01426a;
+      --main-green: #225d38;
+      --main-dark: #2e2e2e;
+      --input-dark: #232323;
+      --text: #f5f5f5;
+      --muted: #bac7c2;
+      --focus: #eadb4c;
+      --live: #69bd80;
+      --danger: #ff8f87;
+      --panel-border: 2px solid var(--main-dark);
+      --shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      min-height: 100%;
+      background: var(--main-dark);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background: radial-gradient(circle at 50% 0%, var(--main-blue), var(--main-dark) 82%) fixed;
+      font-family: "Goldman", system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+      letter-spacing: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      color: var(--text);
+    }
+
+    a {
+      color: var(--text);
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--main-dark);
+      background: var(--focus);
+      transform: translateY(-160%);
+      transition: transform 150ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      width: 100%;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .top-bar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(100% - 6vw, 1320px);
+      min-height: 54px;
+      margin: 0 auto;
+      gap: 18px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      min-width: 0;
+      align-items: baseline;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .brand {
+      color: var(--text);
+      font-size: clamp(1.45rem, 2.4vw, 2rem);
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .brand:hover {
+      color: var(--focus);
+    }
+
+    .slash {
+      color: var(--focus);
+      font-size: 1.35rem;
+    }
+
+    .page-name {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-overflow: ellipsis;
+    }
+
+    .connection {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 1.125rem;
+      white-space: nowrap;
+    }
+
+    .connection__dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #8c9692;
+      box-shadow: 0 0 0 4px rgba(140, 150, 146, 0.12);
+    }
+
+    .connection[data-state="live"] .connection__dot {
+      background: var(--live);
+      box-shadow: 0 0 0 4px rgba(105, 189, 128, 0.14);
+      animation: live-pulse 2s ease-out infinite;
+    }
+
+    .connection[data-state="error"] .connection__dot {
+      background: var(--danger);
+      box-shadow: 0 0 0 4px rgba(255, 143, 135, 0.12);
+    }
+
+    @keyframes live-pulse {
+      0%, 40% { box-shadow: 0 0 0 4px rgba(105, 189, 128, 0.14); }
+      70% { box-shadow: 0 0 0 9px rgba(105, 189, 128, 0); }
+      100% { box-shadow: 0 0 0 4px rgba(105, 189, 128, 0); }
+    }
+
+    main {
+      width: min(100% - 6vw, 1320px);
+      margin: 0 auto;
+      padding: 24px 0 32px;
+    }
+
+    .intro {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 24px;
+    }
+
+    .intro h1 {
+      margin: 0 0 7px;
+      font-size: clamp(1.65rem, 3.2vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .intro p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.87rem;
+      line-height: 1.6;
+    }
+
+    .summary {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 8px;
+    }
+
+    .summary__item {
+      min-width: 112px;
+      padding: 8px 12px;
+      border: 1px solid rgba(245, 245, 245, 0.14);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.17);
+      text-align: center;
+    }
+
+    .summary__value {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--focus);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .summary__label {
+      color: var(--muted);
+      font-size: 0.96rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .notice {
+      display: none;
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(234, 219, 76, 0.55);
+      border-left: 4px solid var(--focus);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.22);
+      color: var(--muted);
+      font-size: 0.77rem;
+      line-height: 1.55;
+    }
+
+    .notice[data-visible="true"] {
+      display: block;
+    }
+
+    .notice strong {
+      color: var(--text);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.52fr);
+      align-items: start;
+      gap: 10px;
+    }
+
+    .panel {
+      overflow: hidden;
+      border: var(--panel-border);
+      border-radius: 10px;
+      background: rgba(34, 93, 56, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .panel__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      padding: 13px 16px;
+      gap: 12px;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .panel__heading {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .panel__number {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(245, 245, 245, 0.25);
+      border-radius: 7px;
+      color: var(--focus);
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 0.72rem;
+    }
+
+    .panel h2 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .panel__body {
+      padding: 14px 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field--wide {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 0.72rem;
+    }
+
+    .optional {
+      color: var(--muted);
+      font-size: 0.64rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(245, 245, 245, 0.3);
+      border-radius: 8px;
+      outline: none;
+      color: var(--text);
+      background: var(--input-dark);
+      font-size: 0.83rem;
+      line-height: 1.35;
+      transition: border-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    input {
+      min-height: 44px;
+      padding: 10px 11px;
+    }
+
+    textarea {
+      min-height: 70px;
+      padding: 11px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #8f9c98;
+      opacity: 1;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(234, 219, 76, 0.25);
+    }
+
+    .field__hint {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 0.62rem;
+      line-height: 1.45;
+    }
+
+    .privacy-note {
+      display: flex;
+      margin: 10px 0;
+      padding: 8px 10px;
+      gap: 9px;
+      border-radius: 7px;
+      background: rgba(0, 0, 0, 0.14);
+      color: var(--muted);
+      font-size: 0.65rem;
+      line-height: 1.5;
+    }
+
+    .privacy-note__icon {
+      flex: 0 0 auto;
+      color: var(--focus);
+    }
+
+    .form-status {
+      min-height: 1.1rem;
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 0.69rem;
+      line-height: 1.4;
+    }
+
+    .form-status[data-kind="success"] {
+      color: #a5e0b5;
+    }
+
+    .form-status[data-kind="error"] {
+      color: var(--danger);
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px solid var(--main-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 700;
+      transition: transform 100ms ease, filter 150ms ease;
+    }
+
+    .button:focus-visible,
+    .queue-item__remove:focus-visible,
+    .brand:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .button--primary {
+      width: 100%;
+      padding: 10px 16px;
+      background: var(--main-green);
+    }
+
+    .button--primary:hover:not(:disabled) {
+      background: linear-gradient(to right, var(--main-green), var(--main-yellow));
+    }
+
+    .button--secondary {
+      min-height: 35px;
+      padding: 7px 11px;
+      background: var(--main-blue);
+      font-size: 1.005rem;
+    }
+
+    .button--secondary:hover:not(:disabled) {
+      background: linear-gradient(to right, var(--main-blue), #17658f);
+    }
+
+    .button:active:not(:disabled) {
+      transform: translateY(2px);
+    }
+
+    .button:disabled {
+      border-color: #5d6461;
+      cursor: not-allowed;
+      color: #a9b1ae;
+      background: #3b4140;
+    }
+
+    .button__spinner {
+      display: none;
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(245, 245, 245, 0.35);
+      border-top-color: var(--text);
+      border-radius: 999px;
+      animation: spin 700ms linear infinite;
+    }
+
+    .button[data-loading="true"] .button__spinner {
+      display: block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .queue-meta {
+      color: var(--muted);
+      font-size: 0.975rem;
+    }
+
+    .queue-list {
+      display: grid;
+      min-height: 182px;
+      margin: 0;
+      padding: 0;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .queue-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      align-items: center;
+      min-height: 76px;
+      padding: 11px 12px;
+      gap: 12px;
+      border: 2px solid var(--main-dark);
+      border-radius: 10px;
+      background: rgba(23, 67, 41, 0.92);
+    }
+
+    .queue-item[data-status="called"] {
+      border-color: var(--focus);
+      box-shadow: inset 4px 0 0 var(--focus);
+      background: linear-gradient(90deg, rgba(139, 128, 0, 0.32), rgba(23, 67, 41, 0.95) 30%);
+    }
+
+    .queue-item[data-mine="true"]::after {
+      position: absolute;
+      top: 7px;
+      right: 8px;
+      content: "YOU";
+      color: var(--focus);
+      font-size: 0.52rem;
+    }
+
+    .queue-item__position {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(245, 245, 245, 0.2);
+      border-radius: 8px;
+      color: var(--focus);
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .queue-item[data-status="called"] .queue-item__position {
+      color: var(--main-dark);
+      background: var(--focus);
+      font-size: 0.9rem;
+    }
+
+    .queue-item__content {
+      min-width: 0;
+    }
+
+    .queue-item__name {
+      overflow: hidden;
+      margin: 0 0 6px;
+      font-size: 0.87rem;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .queue-item__details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 10px;
+      color: var(--muted);
+      font-size: 0.975rem;
+      line-height: 1.45;
+    }
+
+    .queue-item__note {
+      overflow-wrap: anywhere;
+    }
+
+    .queue-item__aside {
+      display: flex;
+      min-width: 90px;
+      flex-direction: column;
+      align-items: end;
+      padding-top: 7px;
+      gap: 7px;
+      text-align: right;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 7px;
+      border: 1px solid rgba(245, 245, 245, 0.2);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(0, 0, 0, 0.17);
+      font-size: 0.855rem;
+      text-transform: uppercase;
+    }
+
+    .status-pill::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--live);
+      content: "";
+    }
+
+    .queue-item[data-status="called"] .status-pill {
+      border-color: rgba(234, 219, 76, 0.6);
+      color: var(--focus);
+    }
+
+    .queue-item[data-status="called"] .status-pill::before {
+      background: var(--focus);
+    }
+
+    .wait-time {
+      color: var(--muted);
+      font-size: 0.58rem;
+    }
+
+    .queue-item__remove {
+      border: 0;
+      padding: 2px 0;
+      cursor: pointer;
+      color: var(--danger);
+      background: transparent;
+      font-size: 0.58rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .queue-item__remove:disabled {
+      cursor: wait;
+      opacity: 0.55;
+    }
+
+    .empty-state {
+      display: grid;
+      min-height: 182px;
+      place-items: center;
+      padding: 30px;
+      border: 1px dashed rgba(245, 245, 245, 0.24);
+      border-radius: 9px;
+      background: rgba(0, 0, 0, 0.12);
+      text-align: center;
+    }
+
+    .empty-state__icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 12px;
+      place-items: center;
+      border: 1px solid rgba(245, 245, 245, 0.18);
+      border-radius: 10px;
+      color: var(--focus);
+      background: rgba(0, 0, 0, 0.15);
+      font-size: 1.25rem;
+    }
+
+    .empty-state h3 {
+      margin: 0 0 7px;
+      font-size: 0.9rem;
+    }
+
+    .empty-state p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.005rem;
+      line-height: 1.55;
+    }
+
+    .skeleton {
+      overflow: hidden;
+    }
+
+    .skeleton::before {
+      display: block;
+      width: 100%;
+      height: 76px;
+      border: 2px solid var(--main-dark);
+      border-radius: 10px;
+      background: linear-gradient(100deg, rgba(23, 67, 41, 0.72) 20%, rgba(245, 245, 245, 0.09) 38%, rgba(23, 67, 41, 0.72) 56%);
+      background-size: 210% 100%;
+      content: "";
+      animation: shimmer 1.35s infinite linear;
+    }
+
+    @keyframes shimmer {
+      to { background-position-x: -210%; }
+    }
+
+    .queue-footnote {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 1px 0;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      width: min(100% - 6vw, 1320px);
+      margin: 0 auto;
+      padding: 0 0 24px;
+      color: var(--muted);
+      font-size: 0.62rem;
+      line-height: 1.5;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 860px) {
+      .intro {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .summary {
+        width: 100%;
+      }
+
+      .summary__item {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .top-bar__inner,
+      main,
+      footer {
+        width: min(100% - 24px, 1320px);
+      }
+
+      .page-name,
+      .slash {
+        display: none;
+      }
+
+      .connection__label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+      }
+
+      main {
+        padding-top: 22px;
+      }
+
+      .intro p {
+        font-size: 0.87rem;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field--wide {
+        grid-column: auto;
+      }
+
+      .panel__body {
+        padding: 14px 12px;
+      }
+
+      .queue-item {
+        grid-template-columns: 38px minmax(0, 1fr);
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .queue-item__position {
+        width: 38px;
+        height: 38px;
+      }
+
+      .queue-item__aside {
+        grid-column: 2;
+        min-width: 0;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 0;
+        text-align: left;
+      }
+
+      .queue-item[data-mine="true"]::after {
+        top: 9px;
+      }
+
+      .queue-footnote {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* Google Form + published-Sheet version */
+    .workspace {
+      grid-template-columns: minmax(380px, 0.9fr) minmax(0, 1.35fr);
+    }
+
+    .notice code {
+      color: var(--focus);
+      font-family: Consolas, "Courier New", monospace;
+      letter-spacing: 0;
+    }
+
+    .form-guidance {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin: 0 0 10px;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 1.005rem;
+      line-height: 1.5;
+    }
+
+    .form-guidance p {
+      margin: 0;
+    }
+
+    .form-guidance strong {
+      color: var(--text);
+    }
+
+    .form-open {
+      flex: 0 0 auto;
+      color: var(--focus);
+      font-size: 0.945rem;
+      text-underline-offset: 3px;
+      white-space: nowrap;
+    }
+
+    .form-open:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .form-embed-shell {
+      overflow: hidden;
+      border: 2px solid var(--main-dark);
+      border-radius: 10px;
+      background: #f0ebf8;
+    }
+
+    .form-embed {
+      display: block;
+      width: 100%;
+      height: 920px;
+      border: 0;
+      background: #f0ebf8;
+    }
+
+    .privacy-note {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 920px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .form-embed {
+        height: 860px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .form-guidance {
+        display: block;
+      }
+
+      .form-open {
+        display: inline-block;
+        margin-top: 7px;
+      }
+
+      .form-embed {
+        height: clamp(860px, calc(1120px - 45vw), 970px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to waitlist</a>
+
+  <header class="top-bar">
+    <div class="top-bar__inner">
+      <div class="breadcrumb" aria-label="Breadcrumb">
+        <a class="brand" href="./">GR Toolbox</a>
+      </div>
+
+      <div class="connection" id="connection" data-state="idle" role="status" aria-live="polite">
+        <span class="connection__dot" aria-hidden="true"></span>
+        <span class="connection__label" id="connection-label">Loading…</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">Lab Demo Waitlist</h1>
+        <p>Submit once.</p>
+      </div>
+
+      <div class="summary" aria-label="Waitlist summary">
+        <div class="summary__item">
+          <span class="summary__value" id="waiting-count">—</span>
+          <span class="summary__label">Waiting</span>
+        </div>
+        <div class="summary__item">
+          <span class="summary__value" id="called-count">—</span>
+          <span class="summary__label">Come up</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <section class="panel" aria-labelledby="join-title">
+        <header class="panel__header">
+          <div class="panel__heading">
+            <h2 id="join-title">Sign up</h2>
+          </div>
+        </header>
+
+        <div class="panel__body">
+          <div class="form-guidance">
+            <p><strong>First name + last initial.</strong> No IDs, email, or grades.</p>
+            <a class="form-open" href="https://docs.google.com/forms/d/e/1FAIpQLSeulik7OZdfgFPxX_pNRbxIo0n0CvDHkDmU09vzxZSXSA7a1Q/viewform" target="_blank" rel="noopener">Open in new tab ↗</a>
+          </div>
+
+          <div class="form-embed-shell">
+            <iframe
+              class="form-embed"
+              src="https://docs.google.com/forms/d/e/1FAIpQLSeulik7OZdfgFPxX_pNRbxIo0n0CvDHkDmU09vzxZSXSA7a1Q/viewform?embedded=true"
+              title="Join the Lab Demo Waitlist"
+              loading="eager">Loading the waitlist form…</iframe>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="queue-title">
+        <header class="panel__header">
+          <div class="panel__heading">
+            <div>
+              <h2 id="queue-title">Queue</h2>
+              <span class="queue-meta" id="last-updated">Checking…</span>
+            </div>
+          </div>
+
+          <button class="button button--secondary" id="refresh-button" type="button" aria-label="Refresh the waitlist">
+            <span aria-hidden="true">↻</span>
+            <span>Refresh</span>
+          </button>
+        </header>
+
+        <div class="panel__body">
+          <div id="queue-region" aria-live="polite" aria-busy="true">
+            <ol class="queue-list" id="queue-list">
+              <li class="skeleton" aria-hidden="true"></li>
+              <li class="skeleton" aria-hidden="true"></li>
+            </ol>
+          </div>
+
+          <div class="queue-footnote">
+            <span>Updates every 30 sec.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <template id="queue-item-template">
+    <li class="queue-item">
+      <div class="queue-item__position"></div>
+      <div class="queue-item__content">
+        <p class="queue-item__name"></p>
+        <div class="queue-item__details"></div>
+      </div>
+      <div class="queue-item__aside">
+        <span class="status-pill"></span>
+      </div>
+    </li>
+  </template>
+
+  <script>
+    "use strict";
+
+    /*
+      Paste the CSV link produced by Google Sheets:
+      File > Share > Publish to web > Public Queue > Comma-separated values (.csv)
+
+      The Google Form is already connected above. Add ?demo=1 to this page URL to
+      preview the queue layout before publishing the Public Queue sheet.
+    */
+    const CONFIG = Object.freeze({
+      queueCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjX5lEpkEaaw7zhmoIbkBlQHVTWKOfkuZir7XggwArxE-Ap367wIxmqyDfQDsoyEOFGz-RiWEyrfJe/pub?gid=0&single=true&output=csv",
+      refreshIntervalMs: 30000,
+      requestTimeoutMs: 20000,
+      maxRows: 200,
+      maxNameLength: 60,
+      maxLabLength: 80
+    });
+
+    const demoMode = new URLSearchParams(window.location.search).get("demo") === "1";
+
+    const elements = {
+      connection: document.querySelector("#connection"),
+      connectionLabel: document.querySelector("#connection-label"),
+      waitingCount: document.querySelector("#waiting-count"),
+      calledCount: document.querySelector("#called-count"),
+      lastUpdated: document.querySelector("#last-updated"),
+      refreshButton: document.querySelector("#refresh-button"),
+      queueRegion: document.querySelector("#queue-region"),
+      queueList: document.querySelector("#queue-list"),
+      itemTemplate: document.querySelector("#queue-item-template")
+    };
+
+    const state = {
+      queue: [],
+      refreshing: false,
+      intervalId: null,
+      demoQueue: [
+        { name: "Maya R.", lab: "Lab demo 4", status: "called" },
+        { name: "Andre K.", lab: "Lab demo 4", status: "waiting" },
+        { name: "Priya S.", lab: "Lab demo 3", status: "waiting" }
+      ]
+    };
+
+    function setConnection(kind, label) {
+      elements.connection.dataset.state = kind;
+      elements.connectionLabel.textContent = label;
+    }
+
+    function isConfigured() {
+      const value = String(CONFIG.queueCsvUrl || "").trim();
+      if (!value || value.indexOf("PASTE_") === 0) return false;
+
+      try {
+        const url = new URL(value);
+        return url.protocol === "https:" || url.protocol === "http:";
+      } catch {
+        return false;
+      }
+    }
+
+    function normalizeFeedUrl(value) {
+      const url = new URL(value);
+
+      if (url.hostname === "docs.google.com" && url.pathname.indexOf("/spreadsheets/d/e/") !== -1) {
+        url.pathname = url.pathname.replace(/\/pubhtml$/, "/pub");
+        url.searchParams.set("output", "csv");
+      }
+
+      url.searchParams.set("_", String(Date.now()));
+      return url.toString();
+    }
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
+
+      for (let index = 0; index < text.length; index += 1) {
+        const character = text[index];
+
+        if (quoted) {
+          if (character === '"') {
+            if (text[index + 1] === '"') {
+              cell += '"';
+              index += 1;
+            } else {
+              quoted = false;
+            }
+          } else {
+            cell += character;
+          }
+          continue;
+        }
+
+        if (character === '"') {
+          quoted = true;
+        } else if (character === ",") {
+          row.push(cell);
+          cell = "";
+        } else if (character === "\n" || character === "\r") {
+          if (character === "\r" && text[index + 1] === "\n") index += 1;
+          row.push(cell);
+          rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += character;
+        }
+      }
+
+      if (cell.length || row.length) {
+        row.push(cell);
+        rows.push(row);
+      }
+
+      if (rows[0] && rows[0][0]) {
+        rows[0][0] = rows[0][0].replace(/^\uFEFF/, "");
+      }
+
+      return rows.filter(function (cells) {
+        return cells.some(function (value) {
+          return String(value).trim() !== "";
+        });
+      });
+    }
+
+    function normalizeHeader(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ");
+    }
+
+    function findHeader(headers, choices) {
+      for (let choiceIndex = 0; choiceIndex < choices.length; choiceIndex += 1) {
+        const index = headers.indexOf(choices[choiceIndex]);
+        if (index !== -1) return index;
+      }
+      return -1;
+    }
+
+    function cleanCell(value, maximumLength) {
+      return String(value || "").replace(/\s+/g, " ").trim().slice(0, maximumLength);
+    }
+
+    function queueFromCsv(text) {
+      const rows = parseCsv(text);
+      if (!rows.length) return [];
+
+      const headers = rows[0].map(normalizeHeader);
+      const nameIndex = findHeader(headers, ["display name", "name"]);
+      const labIndex = findHeader(headers, ["lab / assignment", "lab demo #", "lab demo", "lab"]);
+      const stateIndex = findHeader(headers, ["queue state", "queue status", "waitlist status"]);
+
+      if (nameIndex === -1 || labIndex === -1 || stateIndex === -1) {
+        throw new Error("The Public Queue headers do not match the setup guide.");
+      }
+
+      return rows.slice(1).map(function (cells) {
+        const queueState = cleanCell(cells[stateIndex], 20).toLowerCase();
+        if (queueState !== "waiting" && queueState !== "called") return null;
+
+        const name = cleanCell(cells[nameIndex], CONFIG.maxNameLength);
+        const lab = cleanCell(cells[labIndex], CONFIG.maxLabLength);
+        if (!name) return null;
+
+        return { name: name, lab: lab, status: queueState };
+      }).filter(Boolean).slice(0, CONFIG.maxRows);
+    }
+
+    function renderMessage(iconText, heading, bodyText) {
+      elements.queueList.replaceChildren();
+
+      const item = document.createElement("li");
+      const wrapper = document.createElement("div");
+      const icon = document.createElement("span");
+      const headingElement = document.createElement("h3");
+      const body = document.createElement("p");
+
+      item.className = "empty-state";
+      icon.className = "empty-state__icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = iconText;
+      headingElement.textContent = heading;
+      body.textContent = bodyText;
+      wrapper.append(icon, headingElement, body);
+      item.append(wrapper);
+      elements.queueList.append(item);
+      elements.queueRegion.setAttribute("aria-busy", "false");
+    }
+
+    function renderQueue() {
+      const called = state.queue.filter(function (item) {
+        return item.status === "called";
+      });
+      const waiting = state.queue.filter(function (item) {
+        return item.status === "waiting";
+      });
+      const ordered = called.concat(waiting);
+
+      elements.waitingCount.textContent = String(waiting.length);
+      elements.calledCount.textContent = String(called.length);
+      elements.queueList.replaceChildren();
+      elements.queueRegion.setAttribute("aria-busy", "false");
+
+      if (!ordered.length) {
+        renderMessage("✓", "Queue is empty", "Submit when ready.");
+        return;
+      }
+
+      let waitingPosition = 0;
+
+      ordered.forEach(function (item) {
+        if (item.status === "waiting") waitingPosition += 1;
+
+        const fragment = elements.itemTemplate.content.cloneNode(true);
+        const row = fragment.querySelector(".queue-item");
+        const position = fragment.querySelector(".queue-item__position");
+        const name = fragment.querySelector(".queue-item__name");
+        const details = fragment.querySelector(".queue-item__details");
+        const pill = fragment.querySelector(".status-pill");
+
+        row.dataset.status = item.status;
+        position.textContent = item.status === "called" ? "GO" : String(waitingPosition).padStart(2, "0");
+        position.setAttribute("aria-label", item.status === "called" ? "Come up now" : "Position " + waitingPosition);
+        name.textContent = item.name;
+        details.textContent = item.lab || "Lab demo";
+        pill.textContent = item.status === "called" ? "Come up" : "Waiting";
+
+        elements.queueList.append(fragment);
+      });
+    }
+
+    function timeoutSignal(milliseconds) {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(function () {
+        controller.abort();
+      }, milliseconds);
+
+      return {
+        signal: controller.signal,
+        cancel: function () {
+          window.clearTimeout(timeoutId);
+        }
+      };
+    }
+
+    async function loadQueueCsvOnce() {
+      const timeout = timeoutSignal(CONFIG.requestTimeoutMs);
+
+      try {
+        const response = await fetch(normalizeFeedUrl(CONFIG.queueCsvUrl), {
+          cache: "no-store",
+          redirect: "follow",
+          signal: timeout.signal
+        });
+
+        if (!response.ok) {
+          throw new Error("Google returned " + response.status + ".");
+        }
+
+        return queueFromCsv(await response.text());
+      } catch (error) {
+        if (error && error.name === "AbortError") {
+          throw new Error("The published queue took too long to respond.");
+        }
+        throw error;
+      } finally {
+        timeout.cancel();
+      }
+    }
+
+    async function loadQueueCsv() {
+      try {
+        return await loadQueueCsvOnce();
+      } catch (firstError) {
+        await new Promise(function (resolve) {
+          window.setTimeout(resolve, 600);
+        });
+        return loadQueueCsvOnce();
+      }
+    }
+
+    function showLocalFileState() {
+      elements.waitingCount.textContent = "—";
+      elements.calledCount.textContent = "—";
+      elements.lastUpdated.textContent = "Website required";
+      setConnection("idle", "Open online");
+      renderMessage("↗", "Open the hosted page", "The live queue cannot load from a file.");
+    }
+
+    function showUnconfiguredState() {
+      elements.waitingCount.textContent = "—";
+      elements.calledCount.textContent = "—";
+      elements.lastUpdated.textContent = "Not connected";
+      setConnection("idle", "Setup needed");
+      renderMessage("⚙", "Queue not connected", "Add the published CSV URL.");
+    }
+
+    async function refreshQueue() {
+      if (state.refreshing) return;
+
+      state.refreshing = true;
+      elements.refreshButton.disabled = true;
+
+      try {
+        if (demoMode) {
+          state.queue = state.demoQueue.slice();
+        } else {
+          if (window.location.protocol === "file:") {
+            showLocalFileState();
+            return;
+          }
+
+          if (!isConfigured()) {
+            showUnconfiguredState();
+            return;
+          }
+          state.queue = await loadQueueCsv();
+        }
+
+        setConnection("live", demoMode ? "Demo" : "Connected");
+        elements.lastUpdated.textContent = "Updated " + new Intl.DateTimeFormat([], {
+          hour: "numeric",
+          minute: "2-digit"
+        }).format(new Date());
+        renderQueue();
+      } catch (error) {
+        console.warn("The public waitlist feed could not be loaded.", error);
+        setConnection("error", "Queue unavailable");
+        elements.lastUpdated.textContent = "Retrying…";
+        if (!state.queue.length) {
+          renderMessage("!", "Queue unavailable", "Refresh or tell your instructor.");
+        }
+      } finally {
+        state.refreshing = false;
+        elements.refreshButton.disabled = false;
+        elements.queueRegion.setAttribute("aria-busy", "false");
+      }
+    }
+
+    function initialize() {
+      elements.refreshButton.addEventListener("click", function () {
+        refreshQueue();
+      });
+
+      refreshQueue();
+      state.intervalId = window.setInterval(refreshQueue, CONFIG.refreshIntervalMs);
+
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) refreshQueue();
+      });
+    }
+
+    initialize();
+  </script>
+</body>
+</html>
