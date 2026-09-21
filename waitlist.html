@@ -199,36 +199,6 @@
       line-height: 1.6;
     }
 
-    .summary {
-      display: flex;
-      flex: 0 0 auto;
-      gap: 8px;
-    }
-
-    .summary__item {
-      min-width: 112px;
-      padding: 8px 12px;
-      border: 1px solid rgba(245, 245, 245, 0.14);
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.17);
-      text-align: center;
-    }
-
-    .summary__value {
-      display: block;
-      margin-bottom: 2px;
-      color: var(--focus);
-      font-size: 1.25rem;
-      line-height: 1;
-    }
-
-    .summary__label {
-      color: var(--muted);
-      font-size: 0.96rem;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
     .notice {
       display: none;
       margin-bottom: 12px;
@@ -423,7 +393,6 @@
     }
 
     .button:focus-visible,
-    .queue-item__remove:focus-visible,
     .brand:focus-visible {
       outline: 3px solid var(--focus);
       outline-offset: 3px;
@@ -484,206 +453,11 @@
       font-size: 0.975rem;
     }
 
-    .queue-list {
-      display: grid;
-      min-height: 182px;
-      margin: 0;
-      padding: 0;
-      gap: 8px;
-      list-style: none;
-    }
-
-    .queue-item {
-      position: relative;
-      display: grid;
-      grid-template-columns: 44px minmax(0, 1fr) auto;
-      align-items: center;
-      height: 76px;
-      min-height: 76px;
-      padding: 11px 12px;
-      gap: 12px;
-      border: 2px solid var(--main-dark);
-      border-radius: 10px;
-      background: rgba(23, 67, 41, 0.92);
-    }
-
-    .queue-item[data-status="called"] {
-      border-color: var(--focus);
-      box-shadow: inset 4px 0 0 var(--focus);
-      background: linear-gradient(90deg, rgba(139, 128, 0, 0.32), rgba(23, 67, 41, 0.95) 30%);
-    }
-
-    .queue-item[data-mine="true"]::after {
-      position: absolute;
-      top: 7px;
-      right: 8px;
-      content: "YOU";
-      color: var(--focus);
-      font-size: 0.52rem;
-    }
-
-    .queue-item__position {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      border: 1px solid rgba(245, 245, 245, 0.2);
-      border-radius: 8px;
-      color: var(--focus);
-      background: rgba(0, 0, 0, 0.2);
+    .queue-delay-note {
+      margin: 0 0 10px;
+      color: var(--muted);
       font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .queue-item[data-status="called"] .queue-item__position {
-      color: var(--main-dark);
-      background: var(--focus);
-      font-size: 0.9rem;
-    }
-
-    .queue-item__content {
-      min-width: 0;
-    }
-
-    .queue-item__name {
-      overflow: hidden;
-      margin: 0 0 4px;
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.1;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .queue-item__details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px 10px;
-      color: var(--muted);
-      font-size: 0.975rem;
-      line-height: 1.45;
-    }
-
-    .queue-item__note {
-      overflow-wrap: anywhere;
-    }
-
-    .queue-item__aside {
-      display: flex;
-      min-width: 90px;
-      flex-direction: column;
-      align-items: end;
-      padding-top: 7px;
-      gap: 7px;
-      text-align: right;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 7px;
-      border: 1px solid rgba(245, 245, 245, 0.2);
-      border-radius: 999px;
-      color: var(--muted);
-      background: rgba(0, 0, 0, 0.17);
-      font-size: 0.855rem;
-      text-transform: uppercase;
-    }
-
-    .status-pill::before {
-      width: 6px;
-      height: 6px;
-      border-radius: 99px;
-      background: var(--live);
-      content: "";
-    }
-
-    .queue-item[data-status="called"] .status-pill {
-      border-color: rgba(234, 219, 76, 0.6);
-      color: var(--focus);
-    }
-
-    .queue-item[data-status="called"] .status-pill::before {
-      background: var(--focus);
-    }
-
-    .wait-time {
-      color: var(--muted);
-      font-size: 0.58rem;
-    }
-
-    .queue-item__remove {
-      border: 0;
-      padding: 2px 0;
-      cursor: pointer;
-      color: var(--danger);
-      background: transparent;
-      font-size: 0.58rem;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .queue-item__remove:disabled {
-      cursor: wait;
-      opacity: 0.55;
-    }
-
-    .empty-state {
-      display: grid;
-      min-height: 182px;
-      place-items: center;
-      padding: 30px;
-      border: 1px dashed rgba(245, 245, 245, 0.24);
-      border-radius: 9px;
-      background: rgba(0, 0, 0, 0.12);
-      text-align: center;
-    }
-
-    .empty-state__icon {
-      display: grid;
-      width: 46px;
-      height: 46px;
-      margin: 0 auto 12px;
-      place-items: center;
-      border: 1px solid rgba(245, 245, 245, 0.18);
-      border-radius: 10px;
-      color: var(--focus);
-      background: rgba(0, 0, 0, 0.15);
-      font-size: 1.25rem;
-    }
-
-    .empty-state h3 {
-      margin: 0 0 7px;
-      font-size: 0.9rem;
-    }
-
-    .empty-state p {
-      max-width: 430px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.005rem;
-      line-height: 1.55;
-    }
-
-    .skeleton {
-      overflow: hidden;
-    }
-
-    .skeleton::before {
-      display: block;
-      width: 100%;
-      height: 76px;
-      border: 2px solid var(--main-dark);
-      border-radius: 10px;
-      background: linear-gradient(100deg, rgba(23, 67, 41, 0.72) 20%, rgba(245, 245, 245, 0.09) 38%, rgba(23, 67, 41, 0.72) 56%);
-      background-size: 210% 100%;
-      content: "";
-      animation: shimmer 1.35s infinite linear;
-    }
-
-    @keyframes shimmer {
-      to { background-position-x: -210%; }
+      line-height: 1.5;
     }
 
     .queue-footnote {
@@ -721,15 +495,6 @@
       .intro {
         align-items: start;
         flex-direction: column;
-      }
-
-      .summary {
-        width: 100%;
-      }
-
-      .summary__item {
-        min-width: 0;
-        flex: 1;
       }
 
       .workspace {
@@ -775,32 +540,6 @@
 
       .panel__body {
         padding: 14px 12px;
-      }
-
-      .queue-item {
-        grid-template-columns: 38px minmax(0, 1fr);
-        height: auto;
-        padding: 10px;
-        gap: 10px;
-      }
-
-      .queue-item__position {
-        width: 38px;
-        height: 38px;
-      }
-
-      .queue-item__aside {
-        grid-column: 2;
-        min-width: 0;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 0;
-        text-align: left;
-      }
-
-      .queue-item[data-mine="true"]::after {
-        top: 9px;
       }
 
       .queue-footnote {
@@ -863,6 +602,16 @@
       outline-offset: 3px;
     }
 
+    .queue-open {
+      color: var(--focus);
+      text-underline-offset: 3px;
+    }
+
+    .queue-open:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
     .form-embed-shell {
       overflow: hidden;
       border: 2px solid var(--main-dark);
@@ -878,6 +627,22 @@
       background: #f0ebf8;
     }
 
+    .queue-embed-shell {
+      overflow: hidden;
+      border: 2px solid var(--main-dark);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .queue-embed {
+      display: block;
+      width: 100%;
+      height: clamp(520px, 65vh, 700px);
+      border: 0;
+      background: #fff;
+      color-scheme: light;
+    }
+
     .privacy-note {
       margin-bottom: 0;
     }
@@ -890,6 +655,7 @@
       .form-embed {
         height: 860px;
       }
+
     }
 
     @media (max-width: 560px) {
@@ -904,6 +670,10 @@
 
       .form-embed {
         height: clamp(860px, calc(1120px - 45vw), 970px);
+      }
+
+      .queue-embed {
+        height: clamp(440px, 62vh, 560px);
       }
     }
   </style>
@@ -931,17 +701,6 @@
         <h1 id="page-title">Lab Demo Waitlist</h1>
         <p>Submit once.</p>
       </div>
-
-      <div class="summary" aria-label="Waitlist summary">
-        <div class="summary__item">
-          <span class="summary__value" id="waiting-count">—</span>
-          <span class="summary__label">Waiting</span>
-        </div>
-        <div class="summary__item">
-          <span class="summary__value" id="called-count">—</span>
-          <span class="summary__label">Come up</span>
-        </div>
-      </div>
     </section>
 
     <div class="workspace">
@@ -961,6 +720,7 @@
           <div class="form-embed-shell">
             <iframe
               class="form-embed"
+              id="form-embed"
               src="https://docs.google.com/forms/d/e/1FAIpQLSeulik7OZdfgFPxX_pNRbxIo0n0CvDHkDmU09vzxZSXSA7a1Q/viewform?embedded=true"
               title="Join the Lab Demo Waitlist"
               loading="eager">Loading the waitlist form…</iframe>
@@ -985,429 +745,175 @@
         </header>
 
         <div class="panel__body">
-          <div id="queue-region" aria-live="polite" aria-busy="true">
-            <ol class="queue-list" id="queue-list">
-              <li class="skeleton" aria-hidden="true"></li>
-              <li class="skeleton" aria-hidden="true"></li>
-            </ol>
+          <p class="queue-delay-note">It may take some time after submitting for your name to appear here.</p>
+
+          <div class="queue-embed-shell">
+            <iframe
+              class="queue-embed"
+              id="queue-embed"
+              src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTjX5lEpkEaaw7zhmoIbkBlQHVTWKOfkuZir7XggwArxE-Ap367wIxmqyDfQDsoyEOFGz-RiWEyrfJe/pubhtml?gid=0&amp;single=true&amp;widget=false&amp;headers=false&amp;chrome=false"
+              title="Live Lab Demo Waitlist queue"
+              loading="eager">Loading the queue…</iframe>
           </div>
 
           <div class="queue-footnote">
             <span>Updates every 30 sec.</span>
+            <a
+              class="queue-open"
+              href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTjX5lEpkEaaw7zhmoIbkBlQHVTWKOfkuZir7XggwArxE-Ap367wIxmqyDfQDsoyEOFGz-RiWEyrfJe/pubhtml?gid=0&amp;single=true&amp;widget=false&amp;headers=false&amp;chrome=false"
+              target="_blank"
+              rel="noopener">Open queue ↗</a>
           </div>
         </div>
       </section>
     </div>
   </main>
 
-  <template id="queue-item-template">
-    <li class="queue-item">
-      <div class="queue-item__position"></div>
-      <div class="queue-item__content">
-        <p class="queue-item__name"></p>
-        <div class="queue-item__details"></div>
-      </div>
-      <div class="queue-item__aside">
-        <span class="status-pill"></span>
-      </div>
-    </li>
-  </template>
-
   <script>
     "use strict";
 
-    /*
-      Paste the CSV link produced by Google Sheets:
-      File > Share > Publish to web > Public Queue > Comma-separated values (.csv)
-
-      The Google Form is already connected above. Add ?demo=1 to this page URL to
-      preview the queue layout before publishing the Public Queue sheet.
-    */
     const CONFIG = Object.freeze({
-      queueCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjX5lEpkEaaw7zhmoIbkBlQHVTWKOfkuZir7XggwArxE-Ap367wIxmqyDfQDsoyEOFGz-RiWEyrfJe/pub?gid=0&single=true&output=csv",
+      queueEmbedUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjX5lEpkEaaw7zhmoIbkBlQHVTWKOfkuZir7XggwArxE-Ap367wIxmqyDfQDsoyEOFGz-RiWEyrfJe/pubhtml?gid=0&single=true&widget=false&headers=false&chrome=false",
       refreshIntervalMs: 30000,
-      requestTimeoutMs: 20000,
-      emptyResponseRetryDelaysMs: Object.freeze([300, 700, 1400]),
-      emptySnapshotConfirmations: 2,
-      maxRows: 200,
-      maxNameLength: 60,
-      maxLabLength: 80
+      refreshTimeoutMs: 20000,
+      submissionRefreshDelaysMs: Object.freeze([2000, 10000])
     });
-
-    const demoMode = new URLSearchParams(window.location.search).get("demo") === "1";
 
     const elements = {
       connection: document.querySelector("#connection"),
       connectionLabel: document.querySelector("#connection-label"),
-      waitingCount: document.querySelector("#waiting-count"),
-      calledCount: document.querySelector("#called-count"),
       lastUpdated: document.querySelector("#last-updated"),
       refreshButton: document.querySelector("#refresh-button"),
-      queueRegion: document.querySelector("#queue-region"),
-      queueList: document.querySelector("#queue-list"),
-      itemTemplate: document.querySelector("#queue-item-template")
+      formEmbed: document.querySelector("#form-embed"),
+      queueEmbed: document.querySelector("#queue-embed")
     };
 
-    const state = {
-      queue: [],
-      refreshing: false,
-      emptySnapshotStreak: 0,
-      intervalId: null,
-      demoQueue: [
-        { name: "Maya R.", lab: "Lab demo 4", status: "called" },
-        { name: "Andre K.", lab: "Lab demo 4", status: "waiting" },
-        { name: "Priya S.", lab: "Lab demo 3", status: "waiting" }
-      ]
-    };
+    let refreshInProgress = false;
+    let refreshTimeoutId = null;
+    let formInitialLoadComplete = false;
+    let submissionRefreshTimeoutIds = [];
+    let queuedForcedRefresh = false;
 
     function setConnection(kind, label) {
       elements.connection.dataset.state = kind;
       elements.connectionLabel.textContent = label;
     }
 
-    function isConfigured() {
-      const value = String(CONFIG.queueCsvUrl || "").trim();
-      if (!value || value.indexOf("PASTE_") === 0) return false;
-
-      try {
-        const url = new URL(value);
-        return url.protocol === "https:" || url.protocol === "http:";
-      } catch {
-        return false;
-      }
-    }
-
-    function normalizeFeedUrl(value) {
-      const url = new URL(value);
-
-      if (url.hostname === "docs.google.com" && url.pathname.indexOf("/spreadsheets/d/e/") !== -1) {
-        url.pathname = url.pathname.replace(/\/pubhtml$/, "/pub");
-        url.searchParams.set("output", "csv");
-      }
-
+    function cacheBustedQueueUrl() {
+      const url = new URL(CONFIG.queueEmbedUrl);
       url.searchParams.set("_", String(Date.now()));
       return url.toString();
     }
 
-    function parseCsv(text) {
-      const rows = [];
-      let row = [];
-      let cell = "";
-      let quoted = false;
+    function refreshedTimeLabel() {
+      return "Reloaded " + new Intl.DateTimeFormat([], {
+        hour: "numeric",
+        minute: "2-digit"
+      }).format(new Date());
+    }
 
-      for (let index = 0; index < text.length; index += 1) {
-        const character = text[index];
+    function runQueuedForcedRefresh() {
+      if (!queuedForcedRefresh) return;
 
-        if (quoted) {
-          if (character === '"') {
-            if (text[index + 1] === '"') {
-              cell += '"';
-              index += 1;
-            } else {
-              quoted = false;
-            }
-          } else {
-            cell += character;
-          }
-          continue;
-        }
+      queuedForcedRefresh = false;
+      window.setTimeout(function () {
+        reloadQueue(true);
+      }, 0);
+    }
 
-        if (character === '"') {
-          quoted = true;
-        } else if (character === ",") {
-          row.push(cell);
-          cell = "";
-        } else if (character === "\n" || character === "\r") {
-          if (character === "\r" && text[index + 1] === "\n") index += 1;
-          row.push(cell);
-          rows.push(row);
-          row = [];
-          cell = "";
-        } else {
-          cell += character;
-        }
+    function finishRefresh() {
+      refreshInProgress = false;
+      elements.refreshButton.disabled = false;
+
+      if (refreshTimeoutId !== null) {
+        window.clearTimeout(refreshTimeoutId);
+        refreshTimeoutId = null;
       }
 
-      if (cell.length || row.length) {
-        row.push(cell);
-        rows.push(row);
+      setConnection("live", "Queue view");
+      elements.lastUpdated.textContent = refreshedTimeLabel();
+      runQueuedForcedRefresh();
+    }
+
+    function showRefreshError() {
+      refreshInProgress = false;
+      elements.refreshButton.disabled = false;
+
+      if (refreshTimeoutId !== null) {
+        window.clearTimeout(refreshTimeoutId);
+        refreshTimeoutId = null;
       }
 
-      if (rows[0] && rows[0][0]) {
-        rows[0][0] = rows[0][0].replace(/^\uFEFF/, "");
-      }
+      setConnection("error", "Queue unavailable");
+      elements.lastUpdated.textContent = "Open queue link";
+      runQueuedForcedRefresh();
+    }
 
-      return rows.filter(function (cells) {
-        return cells.some(function (value) {
-          return String(value).trim() !== "";
-        });
+    function reloadQueue(force) {
+      if (refreshInProgress) {
+        if (force) queuedForcedRefresh = true;
+        return;
+      }
+      if (!force && document.hidden) return;
+      if (!force && document.activeElement === elements.queueEmbed) return;
+
+      refreshInProgress = true;
+      elements.refreshButton.disabled = true;
+      elements.lastUpdated.textContent = "Refreshing…";
+      setConnection("idle", "Refreshing…");
+      elements.queueEmbed.src = cacheBustedQueueUrl();
+
+      refreshTimeoutId = window.setTimeout(function () {
+        if (refreshInProgress) showRefreshError();
+      }, CONFIG.refreshTimeoutMs);
+    }
+
+    function scheduleSubmissionRefreshes() {
+      submissionRefreshTimeoutIds.forEach(function (timeoutId) {
+        window.clearTimeout(timeoutId);
+      });
+
+      submissionRefreshTimeoutIds = CONFIG.submissionRefreshDelaysMs.map(function (delayMs) {
+        return window.setTimeout(function () {
+          reloadQueue(true);
+        }, delayMs);
       });
     }
 
-    function normalizeHeader(value) {
-      return String(value || "")
-        .trim()
-        .toLowerCase()
-        .replace(/[_-]+/g, " ")
-        .replace(/\s+/g, " ");
-    }
-
-    function findHeader(headers, choices) {
-      for (let choiceIndex = 0; choiceIndex < choices.length; choiceIndex += 1) {
-        const index = headers.indexOf(choices[choiceIndex]);
-        if (index !== -1) return index;
-      }
-      return -1;
-    }
-
-    function cleanCell(value, maximumLength) {
-      return String(value || "").replace(/\s+/g, " ").trim().slice(0, maximumLength);
-    }
-
-    function queueFromCsv(text) {
-      const rows = parseCsv(text);
-      if (!rows.length) return [];
-
-      const headers = rows[0].map(normalizeHeader);
-      const nameIndex = findHeader(headers, ["display name", "name"]);
-      const labIndex = findHeader(headers, ["lab / assignment", "lab demo #", "lab demo", "lab"]);
-      const stateIndex = findHeader(headers, ["queue state", "queue status", "waitlist status"]);
-
-      if (nameIndex === -1 || labIndex === -1 || stateIndex === -1) {
-        throw new Error("The Public Queue headers do not match the setup guide.");
-      }
-
-      return rows.slice(1).map(function (cells) {
-        const queueState = cleanCell(cells[stateIndex], 20).toLowerCase();
-        if (queueState !== "waiting" && queueState !== "called") return null;
-
-        const name = cleanCell(cells[nameIndex], CONFIG.maxNameLength);
-        const lab = cleanCell(cells[labIndex], CONFIG.maxLabLength);
-        if (!name) return null;
-
-        return { name: name, lab: lab, status: queueState };
-      }).filter(Boolean).slice(0, CONFIG.maxRows);
-    }
-
-    function renderMessage(iconText, heading, bodyText) {
-      elements.queueList.replaceChildren();
-
-      const item = document.createElement("li");
-      const wrapper = document.createElement("div");
-      const icon = document.createElement("span");
-      const headingElement = document.createElement("h3");
-      const body = document.createElement("p");
-
-      item.className = "empty-state";
-      icon.className = "empty-state__icon";
-      icon.setAttribute("aria-hidden", "true");
-      icon.textContent = iconText;
-      headingElement.textContent = heading;
-      body.textContent = bodyText;
-      wrapper.append(icon, headingElement, body);
-      item.append(wrapper);
-      elements.queueList.append(item);
-      elements.queueRegion.setAttribute("aria-busy", "false");
-    }
-
-    function renderQueue() {
-      const called = state.queue.filter(function (item) {
-        return item.status === "called";
-      });
-      const waiting = state.queue.filter(function (item) {
-        return item.status === "waiting";
-      });
-      const ordered = called.concat(waiting);
-
-      elements.waitingCount.textContent = String(waiting.length);
-      elements.calledCount.textContent = String(called.length);
-      elements.queueList.replaceChildren();
-      elements.queueRegion.setAttribute("aria-busy", "false");
-
-      if (!ordered.length) {
-        renderMessage("✓", "Queue is empty", "Submit when ready.");
+    function handleFormLoad() {
+      if (!formInitialLoadComplete) {
+        formInitialLoadComplete = true;
         return;
       }
 
-      let waitingPosition = 0;
-
-      ordered.forEach(function (item) {
-        if (item.status === "waiting") waitingPosition += 1;
-
-        const fragment = elements.itemTemplate.content.cloneNode(true);
-        const row = fragment.querySelector(".queue-item");
-        const position = fragment.querySelector(".queue-item__position");
-        const name = fragment.querySelector(".queue-item__name");
-        const details = fragment.querySelector(".queue-item__details");
-        const pill = fragment.querySelector(".status-pill");
-
-        row.dataset.status = item.status;
-        position.textContent = item.status === "called" ? "GO" : String(waitingPosition).padStart(2, "0");
-        position.setAttribute("aria-label", item.status === "called" ? "Come up now" : "Position " + waitingPosition);
-        name.textContent = item.name;
-        details.textContent = item.lab || "Lab demo";
-        pill.textContent = item.status === "called" ? "Come up" : "Waiting";
-
-        elements.queueList.append(fragment);
-      });
+      scheduleSubmissionRefreshes();
     }
 
-    function timeoutSignal(milliseconds) {
-      const controller = new AbortController();
-      const timeoutId = window.setTimeout(function () {
-        controller.abort();
-      }, milliseconds);
-
-      return {
-        signal: controller.signal,
-        cancel: function () {
-          window.clearTimeout(timeoutId);
-        }
-      };
-    }
-
-    async function loadQueueCsvOnce() {
-      const timeout = timeoutSignal(CONFIG.requestTimeoutMs);
-
-      try {
-        const response = await fetch(normalizeFeedUrl(CONFIG.queueCsvUrl), {
-          cache: "no-store",
-          redirect: "follow",
-          signal: timeout.signal
-        });
-
-        if (!response.ok) {
-          throw new Error("Google returned " + response.status + ".");
-        }
-
-        return queueFromCsv(await response.text());
-      } catch (error) {
-        if (error && error.name === "AbortError") {
-          throw new Error("The published queue took too long to respond.");
-        }
-        throw error;
-      } finally {
-        timeout.cancel();
-      }
-    }
-
-    async function loadQueueCsv(verifyEmpty) {
-      let queue;
-
-      try {
-        queue = await loadQueueCsvOnce();
-      } catch (firstError) {
-        await new Promise(function (resolve) {
-          window.setTimeout(resolve, 600);
-        });
-        queue = await loadQueueCsvOnce();
-      }
-
-      if (queue.length) return queue;
-      if (!verifyEmpty) return queue;
-
-      // Google's published CSV occasionally returns only its header row. Require
-      // several empty responses before treating that snapshot as authoritative.
-      for (const delayMs of CONFIG.emptyResponseRetryDelaysMs) {
-        await new Promise(function (resolve) {
-          window.setTimeout(resolve, delayMs);
-        });
-
-        queue = await loadQueueCsvOnce();
-        if (queue.length) return queue;
-      }
-
-      return [];
-    }
-
-    function showLocalFileState() {
-      elements.waitingCount.textContent = "—";
-      elements.calledCount.textContent = "—";
-      elements.lastUpdated.textContent = "Website required";
-      setConnection("idle", "Open online");
-      renderMessage("↗", "Open the hosted page", "The live queue cannot load from a file.");
-    }
-
-    function showUnconfiguredState() {
-      elements.waitingCount.textContent = "—";
-      elements.calledCount.textContent = "—";
-      elements.lastUpdated.textContent = "Not connected";
-      setConnection("idle", "Setup needed");
-      renderMessage("⚙", "Queue not connected", "Add the published CSV URL.");
-    }
-
-    async function refreshQueue(forceEmptyVerification) {
-      if (state.refreshing) return;
-
-      state.refreshing = true;
-      elements.refreshButton.disabled = true;
-
-      try {
-        let nextQueue;
-
-        if (demoMode) {
-          nextQueue = state.demoQueue.slice();
-        } else {
-          if (window.location.protocol === "file:") {
-            showLocalFileState();
-            return;
-          }
-
-          if (!isConfigured()) {
-            showUnconfiguredState();
-            return;
-          }
-          nextQueue = await loadQueueCsv(Boolean(forceEmptyVerification) || state.queue.length > 0);
-        }
-
-        if (!demoMode && !nextQueue.length && state.queue.length) {
-          state.emptySnapshotStreak += 1;
-
-          if (state.emptySnapshotStreak < CONFIG.emptySnapshotConfirmations) {
-            setConnection("live", "Connected");
-            elements.lastUpdated.textContent = "Verifying…";
-            return;
-          }
-        }
-
-        state.emptySnapshotStreak = 0;
-        state.queue = nextQueue;
-
-        setConnection("live", demoMode ? "Demo" : "Connected");
-        elements.lastUpdated.textContent = "Updated " + new Intl.DateTimeFormat([], {
-          hour: "numeric",
-          minute: "2-digit"
-        }).format(new Date());
-        renderQueue();
-      } catch (error) {
-        console.warn("The public waitlist feed could not be loaded.", error);
-        setConnection("error", "Queue unavailable");
-        elements.lastUpdated.textContent = "Retrying…";
-        if (!state.queue.length) {
-          renderMessage("!", "Queue unavailable", "Refresh or tell your instructor.");
-        }
-      } finally {
-        state.refreshing = false;
-        elements.refreshButton.disabled = false;
-        elements.queueRegion.setAttribute("aria-busy", "false");
-      }
+    function markInitialFormLoadComplete() {
+      formInitialLoadComplete = true;
     }
 
     function initialize() {
+      elements.formEmbed.addEventListener("load", handleFormLoad);
+      elements.queueEmbed.addEventListener("load", finishRefresh);
+      elements.queueEmbed.addEventListener("error", showRefreshError);
+
+      if (document.readyState === "complete") {
+        markInitialFormLoadComplete();
+      } else {
+        window.addEventListener("load", markInitialFormLoadComplete, { once: true });
+      }
+
       elements.refreshButton.addEventListener("click", function () {
-        // A cache-busting URL reload is the browser-equivalent of a hard refresh.
-        // JavaScript cannot programmatically send Ctrl+F5, so give this document a
-        // unique URL and replace the current history entry with the fresh response.
-        const freshUrl = new URL(window.location.href);
-        freshUrl.searchParams.set("_refresh", Date.now().toString());
-        window.location.replace(freshUrl.toString());
+        reloadQueue(true);
       });
 
-      refreshQueue(true);
-      state.intervalId = window.setInterval(refreshQueue, CONFIG.refreshIntervalMs);
+      window.setInterval(function () {
+        reloadQueue(false);
+      }, CONFIG.refreshIntervalMs);
 
       document.addEventListener("visibilitychange", function () {
-        if (!document.hidden) refreshQueue(true);
+        if (!document.hidden) reloadQueue(false);
       });
     }
 
